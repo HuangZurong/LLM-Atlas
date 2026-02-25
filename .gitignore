@@ -37,3 +37,4 @@ materials/
 # Misc
 *.log
 *.bkp
+*.db
