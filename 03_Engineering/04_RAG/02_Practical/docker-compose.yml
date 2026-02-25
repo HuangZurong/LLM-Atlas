@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: rag-dev-db
+    command: -p 15432
+    environment:
+      POSTGRES_USER: vectoradmin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: vdbms
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "15432:15432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -p 15432 -U vectoradmin -d vdbms"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  chroma:
+    image: chromadb/chroma:0.5.23
+    container_name: rag-dev-chroma
+    volumes:
+      - chroma_data:/chroma/chroma
+    ports:
+      - "18000:18000"
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+      - PERSIST_DIRECTORY=/chroma/chroma
+      - CHROMA_HOST_PORT=18000
+
+  vector-admin:
+    image: mintplexlabs/vectoradmin:latest
+    container_name: rag-dev-vector-admin
+    depends_on:
+      db:
+        condition: service_healthy
+      chroma:
+        condition: service_started
+    ports:
+      - "13001:13001"
+    environment:
+      SERVER_PORT: "13001"
+      JWT_SECRET: "vector-admin-rag-study-secret"
+      INNGEST_EVENT_KEY: "background_workers"
+      INNGEST_SIGNING_KEY: "inngest-signing-key-standard"
+      INNGEST_LANDING_PAGE: "true"
+      DATABASE_CONNECTION_STRING: "postgresql://vectoradmin:password@db:15432/vdbms"
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 13001 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  chroma_data:
