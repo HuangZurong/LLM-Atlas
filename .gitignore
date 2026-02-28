@@ -2,6 +2,8 @@
 .env
 .env.*
 !.env.example
+llm-config.yaml
+!llm-config.example.yaml
 
 # Python
 .venv/

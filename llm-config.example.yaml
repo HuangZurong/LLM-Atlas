@@ -1,0 +1,29 @@
+version: "1"
+
+defaults:
+  temperature: 0.7
+  max_tokens: 4096
+  timeout: 30
+
+providers:
+  xsee:
+    type: openai
+    api_key: sk-your-api-key
+    api_base: https://aigc.x-see.cn/v1
+
+models:
+  gemini-3-flash:
+    provider: xsee
+    model: gemini-3-flash-preview
+    type: chat
+    temperature: 0.7
+    max_tokens: 4096
+
+aliases:
+  smart: gemini-3-flash
+  fast: gemini-3-flash
+  cheap: gemini-3-flash
+
+tracking:
+  backend: sqlite
+  sqlite_path: ./usage.db
