@@ -9,35 +9,35 @@ This directory contains key theoretical concepts, architectural blueprints, and 
 
 ## Navigation
 
-1.  **[02_Agent_Architecture.md](02_Agent_Architecture.md)**: Core components (Brain, Memory, Action) of an agent.
-2.  **[03_Workflow_Patterns.md](03_Workflow_Patterns.md)**: Standard patterns like Prompt Chaining, Routing, and Orchestration.
-3.  **[04_Multi_Agent_Systems.md](04_Multi_Agent_Systems.md)**: Distributed intelligence and collaborative archetypes.
-4.  **[05_MCP_Protocol.md](05_MCP_Protocol.md)**: The Model Context Protocol standard for data integration.
+1. **[02_Agent_Architecture.md](02_Agent_Architecture.md)**: Core components (Brain, Memory, Action) of an agent.
+2. **[03_Workflow_Patterns.md](03_Workflow_Patterns.md)**: Standard patterns like Prompt Chaining, Routing, and Orchestration.
+3. **[04_Multi_Agent_Systems.md](04_Multi_Agent_Systems.md)**: Distributed intelligence and collaborative archetypes.
+4. **[05_MCP_Protocol.md](05_MCP_Protocol.md)**: The Model Context Protocol — an interoperability standard for Agent-tool integration (see L1 Tool Use).
 
-## Five-Layer Paradigm of AI Agents
+## Four-Layer Paradigm of AI Agents
 
-To understand the Agent industrial ecosystem, we use the following five-layer paradigm as our core cognitive framework:
+To understand the Agent industrial ecosystem, we use the following four-layer paradigm as our core cognitive framework:
 
-### L1. Physical Foundation Layer (FM Engine) —— "The Recruit's Quality"
+### L1. Foundation Capability Layer (Agent Capabilities) —— "The Recruit's Quality"
 
-- **Definition**: Determines basic capabilities such as Context Window size, VRAM footprint, and Alignment (logic, JSON/Code output).
-- **Core**: The reasoning capability of the base model sets the intelligence ceiling of the Agent.
+- **Definition**: All concrete capabilities an Agent can draw upon.
+- **Core Capabilities**:
+  - **Reasoning**: General logical thinking, math, analysis, and common sense.
+  - **Coding**: Code generation, understanding, and debugging.
+  - **Tool Use**: Function Calling, structured output, and external API interaction. Interoperability standards like **MCP Protocol** enable plug-and-play across Agents and tools.
+  - **Memory**: Short-term (context window), long-term (persistent across sessions), and procedural (reusable plan templates).
+  - **Knowledge Retrieval**: RAG, vector stores, knowledge graphs, and web search.
+  - **Perception**: Multimodal understanding (vision, audio, documents, etc.).
 
-### L2. Cognitive Inference Layer (Cognitive Logic) —— "Tactical Prowess"
+### L2. Cognitive Reasoning Layer (Agent Paradigms) —— "Tactical Prowess"
 
-- **Definition**: Solving "How to think".
-- **Core Actions**:
+- **Definition**: Solving "How to think" — abstract patterns that govern the Agent's reasoning loop.
+- **Core Paradigms**:
   - **ReAct**: Spinal reflex; interleaved reasoning and acting.
   - **Plan-and-Solve**: Pre-frontal lobe planning; thinking before acting.
+  - **Reflection**: Self-critique loop; the agent reviews its own output, identifies flaws, and iterates to improve quality.
 
-### L3. Architectural Support Layer (Support/Organs) —— "Individual Equipment"
-
-- **Definition**: Solving "How to connect to the external world".
-- **Core Components**:
-  - **GraphRAG**: An external library for the brain providing deep relationship retrieval.
-  - **Adapter/Tools**: The "hands" that control external tools and APIs.
-
-### L4. Engineering Orchestration Layer (Orchestration) —— "Social Organization"
+### L3. Engineering Orchestration Layer (Orchestration) —— "Social Organization"
 
 - **Definition**: Solving "How multiple brains collaborate".
 - **Core Topologies**: **Handoffs**, **Delegation**, and **Role-playing Hierarchies**.
@@ -46,20 +46,23 @@ To understand the Agent industrial ecosystem, we use the following five-layer pa
   - **Development Frameworks**: **ADK** (Google's hierarchical management), **LangGraph** (Cyclic execution graphs).
   - **Social Patterns**: Defining how a "Founding" agent delegates to "Specialist" agents.
 
-### L5. Industrial Governance Layer (Governance) —— "Command & QC Center"
+### L4. Business & Governance Layer (Operations & Governance) —— "Command & QC Center"
 
 The critical layer for scaling Agent production safely.
 
-1. **Standardized Contracts (MCP Protocol)**: Like a USB interface, enabling plug-and-play across Agents and tools.
-2. **Safety Guardrails**: Real-time monitoring of execution flows to prevent data loss or privacy leaks.
-3. **Cognitive Audit Reports (Traceability & Evaluator)**: Back-tracing the "Intelligence Window" path (Trace) to produce validity reports that guide iteration.
+1. **Safety Guardrails**: Real-time monitoring of execution flows to prevent data loss or privacy leaks.
+2. **Observability & Tracing**: Back-tracing the Agent's reasoning path to produce audit reports that guide iteration.
+3. **Human-in-the-Loop**: Approval workflows and escalation for critical decisions.
+4. **Auth & Permissions**: Identity and permission boundaries for Agent actions.
+5. **Cost Control**: Token budgets, API rate limits, and resource management.
+6. **Evaluation & Testing**: Systematic benchmarking and regression testing of Agent behavior.
 
 ### Summary Formula
 
-- **L1-L2** = **The Soul** (IQ and Logic).
-- **L3** = **The Body** (Memory and Senses).
-- **L4** = **The Society** (Collaboration and Topology).
-- **L5** = **The Civilization** (Standards, Safety, and Evolution).
+- **L1** = **The Body** (Capabilities: intelligence, tools, and memory).
+- **L2** = **The Mind** (Paradigms: how to think and act).
+- **L3** = **The Society** (Collaboration and Topology).
+- **L4** = **The Civilization** (Safety, operations, and continuous improvement).
 
 ## Core Implementation Concepts
 
@@ -69,15 +72,15 @@ An Agent is an LLM wrapper that can use tools and reasoning loops to achieve a g
 
 ### 2. The Reasoning Loop
 
-Modern agents primarily use the **ReAct** (Reasoning and Acting) pattern:
+See L2 Agent Paradigms. The most common is **ReAct** (Reasoning and Acting):
 
 - **Thought**: Break down the task.
 - **Action**: Call a tool or interact with the environment.
 - **Observation**: Read the result of the action.
 - **Repeat**: Iterate until the goal is met.
 
-### 3. Memory Management
+### 3. Memory
 
-- **Short-term**: Context window management.
-- **Long-term**: Vector stores and knowledge graphs.
-- **Procedural**: Storing successful "plans" for future use.
+- **Short-term**: The context window itself — holds the current conversation, intermediate reasoning steps, and tool results. Limited by the model's max token length.
+- **Long-term**: Persists across sessions via external storage — vector databases for semantic retrieval, knowledge graphs for structured relationships, and key-value stores for user preferences.
+- **Procedural**: Stores successful plans and strategies as reusable templates, similar to human "muscle memory" for recurring tasks.
