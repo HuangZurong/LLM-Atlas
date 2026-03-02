@@ -39,6 +39,8 @@ Planning is the "Pre-frontal Cortex" of the agent, responsible for task decompos
   - **Prompt Chaining**: Sequential pipeline where each step's output feeds the next.
   - **Routing**: Conditional branching to different handlers based on input classification.
   - **Parallelization**: Running multiple sub-tasks concurrently and aggregating results.
+  - **Orchestrator-Workers**: A manager LLM dynamically delegates sub-tasks to worker models and synthesizes results.
+  - **Evaluator-Optimizer**: A generate-evaluate-revise loop that iterates until quality criteria are met.
 - **Agent-level** (LLM autonomously governs the multi-step loop, see [01_Theory_Overview.md L2](01_Theory_Overview.md)):
   - **ReAct (Reasoning + Acting)**: The gold standard for agents, interleaving thoughts with actions to stay grounded in environment feedback.
   - **Plan-and-Solve**: The agent first generates a multi-step execution plan and then executes it step-by-step.

@@ -37,6 +37,7 @@ Input → Classifier LLM → ┬─ Route A → Specialist Prompt A → Output
 | Strategy | Latency | Accuracy | Cost |
 | :--- | :--- | :--- | :--- |
 | **LLM Classification** (ask the model to pick a route) | ~500ms | High | Medium |
+| **Fine-tuned Classifier** (BERT/DistilBERT trained on domain data) | ~10-50ms | High | Low |
 | **Embedding Similarity** (compare query to route descriptions) | ~50ms | Medium | Low |
 | **Keyword/Regex Rules** | ~1ms | Low (brittle) | Free |
 | **Hybrid** (rules first, LLM fallback) | ~50-500ms | High | Low-Medium |
@@ -92,7 +93,7 @@ Input → Generator → Draft → Evaluator → ┬─ Pass → Output
                                          └─ Fail → Feedback → Generator (Revise) → ...
 ```
 
-- **Mechanism**: A generator produces a draft. An evaluator (separate LLM call, unit tests, or human) scores it against criteria. If it fails, structured feedback is sent back to the generator for revision. This loops until the output passes or a max iteration limit is reached.
+- **Mechanism**: A generator produces a draft. An evaluator (separate LLM call, unit tests, or human) scores it against criteria. If it fails, structured feedback is sent back to the generator for revision. This loops until the output passes or a max iteration limit is reached. This is essentially the **Reflection** paradigm (see [01_Theory_Overview.md L2](01_Theory_Overview.md)) materialized as an explicit workflow structure.
 - **When to Use**: Tasks where quality is paramount and can be objectively measured (code that must pass tests, compliance text that must meet legal criteria, translations that must preserve meaning).
 - **Strengths**: Produces the highest quality output of any pattern. Self-improving within a single request.
 - **Weaknesses**: Slowest and most expensive pattern (multiple round-trips). Risk of infinite loops if the evaluator and generator disagree.
