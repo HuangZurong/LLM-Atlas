@@ -1,5 +1,7 @@
 # LLM Knowledge Base
 
+> **中文内容在规划中了，请加星关注（便于收到更新通知）**
+
 A professional, four-track curriculum covering the full lifecycle of Large Language Models — from linguistic foundations to production deployment.
 
 ```
