@@ -1,41 +1,60 @@
 # Track 3: The Engineer (System Development)
 
-This track covers the engineering required to build robust LLM applications. It focuses on orchestration, retrieval-augmented generation (RAG), agents, and production deployment.
+This track covers the engineering required to build robust LLM applications. It focuses on prompt engineering, context management, retrieval-augmented generation (RAG), agents, and production deployment.
 
 ## 🗺️ Curriculum Map
 
 ### [01. LLMs](./01_LLMs)
 
-- Evaluation and benchmarking from an application perspective.
+- Model landscape, tokenization, API mechanics, cost optimization.
 
-### [02. Prompting](./02_Prompting)
+### [02. Prompt Engineering](./02_Prompt_Engineering)
 
-- Instruction engineering and prompt learning techniques.
+- Instruction engineering, reasoning patterns (CoT, ReAct), structured output, DSPy optimization.
 
-### [03. Memory](./03_Memory)
+### [03. Context Engineering](./03_Context_Engineering)
 
-- History management and context window optimization.
+- Context window mechanics, context composition and priority, token budget management, long context techniques, dynamic context management for agents.
 
-### [04. RAG](./04_RAG)
+### [04. Memory](./04_Memory)
 
-- Retrieval Augmented Generation pipelines and vector databases.
+- Cross-session memory systems, vector stores, entity extraction, memory lifecycle.
 
-### [05. Agent](./05_Agent)
+### [05. RAG](./05_RAG)
 
-- Tool-use, ReAct frameworks, and multi-agent collaboration.
+- Retrieval Augmented Generation pipelines, advanced RAG, GraphRAG, agentic RAG.
 
-### [06. Deployment](./06_Deployment)
+### [06. Agent](./06_Agent)
 
-- **vLLM**, PagedAttention, and storage/retrieval tradeoffs.
+- Tool-use, ReAct frameworks, multi-agent collaboration, MCP protocol.
 
-### [07. Security](./07_Security)
+### [07. Deployment](./07_Deployment)
 
-- Guardrails, interceptors, and safety benchmarks.
+- vLLM, PagedAttention, quantization, continuous batching, cloud deployment.
 
-### [08. LLMOps](./08_LLMOps)
+### [08. Security](./08_Security)
 
-- Monitoring (Toxicity/Drift), maintenance, and retraining triggers.
+- Guardrails, prompt injection detection, PII redaction, safety benchmarks.
+
+### [09. LLMOps](./09_LLMOps)
+
+- Monitoring, evaluation automation, observability, CI/CD for LLM applications.
 
 ---
 
-_Note: Deployment and LLMOps modules were migrated from the Scientist track to reflect their production focus._
+## Module Progression
+
+```
+01_LLMs → 02_Prompt_Engineering → 03_Context_Engineering → 04_Memory → 05_RAG → 06_Agent
+                                                                                      ↓
+                                                              09_LLMOps ← 08_Security ← 07_Deployment
+```
+
+Each module follows a three-layer structure:
+- `01_Theory/` — Concepts and mental models
+- `02_Practical/` — Working code implementations
+- `03_Best_Practice/` — Production patterns and decision frameworks
+
+---
+
+_Note: Deployment and LLMOps modules were migrated from the Scientist track to reflect their production focus. Context Engineering was added as a dedicated module (previously scattered across 01_LLMs and 03_Memory)._

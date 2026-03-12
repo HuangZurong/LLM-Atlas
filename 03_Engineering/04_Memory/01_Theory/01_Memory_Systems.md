@@ -1,7 +1,7 @@
 # LLM Memory Systems
 
-*Prerequisite: [../../01_LLMs/01_Theory/04_Context_Optimization.md](../../01_LLMs/01_Theory/04_Context_Optimization.md).*
-*See Also: [../../04_RAG/01_Theory/01_Architecture.md](../../04_RAG/01_Theory/01_Architecture.md) (RAG as external memory), [../../../02_Scientist/01_Architecture/12_Long_Context.md](../../../02_Scientist/01_Architecture/12_Long_Context.md) (long context theory).*
+*Prerequisite: [../../03_Context_Engineering/01_Theory/01_Context_Window_Mechanics.md](../../03_Context_Engineering/01_Theory/01_Context_Window_Mechanics.md).*
+*See Also: [../../05_RAG/01_Theory/01_Architecture.md](../../05_RAG/01_Theory/01_Architecture.md) (RAG as external memory), [../../../02_Scientist/01_Architecture/12_Long_Context.md](../../../02_Scientist/01_Architecture/12_Long_Context.md) (long context theory).*
 
 LLMs are stateless by default — each API call is independent with no memory of previous interactions. Memory systems bridge this gap, enabling continuity across turns and sessions.
 
