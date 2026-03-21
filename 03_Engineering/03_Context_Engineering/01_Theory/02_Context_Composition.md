@@ -1,6 +1,7 @@
 # Context Composition
 
 *Prerequisite: [01_Context_Window_Mechanics.md](01_Context_Window_Mechanics.md).*
+*Position in CE Pipeline: Step 2 (Budget & Sort) and Step 4 (Assemble)*
 
 ---
 
@@ -12,29 +13,32 @@ A production LLM call assembles context from multiple sources, each with a diffe
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ LAYER 1: System Prompt          [Fixed, Cached]    ~500T    │
-│   Role definition, persona, output format, constraints      │
+│ LAYER 1: Core System Prompt     [Fixed, Cached]    ~500T    │
+│   Role definition, persona, core constraints                │
 ├─────────────────────────────────────────────────────────────┤
-│ LAYER 2: Background Knowledge   [Semi-static]      ~1000T   │
+│ LAYER 2: Contextual Instructions[Semi-static]      ~300T    │
+│   Style guides, format rules, current task scope            │
+├─────────────────────────────────────────────────────────────┤
+│ LAYER 3: Background Knowledge   [Semi-static]      ~1000T   │
 │   Domain rules, few-shot examples, reference data           │
 ├─────────────────────────────────────────────────────────────┤
-│ LAYER 3: Retrieved Memory       [Dynamic]          ~2000T   │
+│ LAYER 4: Retrieved Memory       [Dynamic]          ~2000T   │
 │   Relevant facts from past sessions (vector DB lookup)      │
 ├─────────────────────────────────────────────────────────────┤
-│ LAYER 4: RAG Context            [Dynamic]          ~4000T   │
+│ LAYER 5: RAG Context            [Dynamic]          ~4000T   │
 │   Retrieved document chunks relevant to current query       │
 ├─────────────────────────────────────────────────────────────┤
-│ LAYER 5: Conversation History   [Dynamic]          ~3000T   │
+│ LAYER 6: Conversation History   [Dynamic]          ~3000T   │
 │   Recent turns (verbatim) + older turns (summarized)        │
 ├─────────────────────────────────────────────────────────────┤
-│ LAYER 6: Tool Results           [Dynamic]          ~1000T   │
+│ LAYER 7: Tool Results           [Dynamic]          ~1000T   │
 │   Outputs from function calls, API responses, code output   │
 ├─────────────────────────────────────────────────────────────┤
-│ LAYER 7: Current User Query     [Dynamic]          ~200T    │
-│   The immediate request                                     │
+│ LAYER 8: Current User & State   [Dynamic]          ~200T    │
+│   Current date/time, user ID, immediate request             │
 └─────────────────────────────────────────────────────────────┘
-                                          TOTAL:    ~11700T
-                                          Output Reserve: ~4300T
+                                          TOTAL:    ~12000T
+                                          Output Reserve: ~4000T
 ```
 
 ## 2. Ordering Principles
@@ -65,6 +69,21 @@ Always place stable, cacheable content before dynamic content:
 ❌ [History][Query][System][Few-shots][RAG]
    ← changes every turn → ← cache miss →
 ```
+
+### Decoupling the System Prompt (Prefix Cache Safe)
+
+While many developers treat the `System Prompt` as a monolithic block, it should be structurally decoupled to maximize prefix caching.
+
+```text
+✅ Optimal Decoupling
+[Core Persona & Rules]      ← Static. Prefix cache hit rate: 99%
+[Formatting Guidelines]     ← Static. Prefix cache hit rate: 99%
+...
+[Current Date: 2025-03-20]  ← Dynamic. Moves to Layer 8 (User Query)
+[User Preferences]          ← Dynamic. Moves to Layer 8 (User Query)
+```
+
+Never mix dynamic variables like timestamps, UUIDs, or per-request parameters into the upper static layers.
 
 ### Recency for Relevance
 
@@ -98,10 +117,14 @@ In agentic workflows, the context must also accommodate tool definitions and too
 └──────────────────────────────────────────────────────────────┘
 ```
 
-**Key challenge**: In long-running agents, tool results accumulate and can exhaust the context window. Strategies:
-- **Result summarization**: Compress older tool outputs into a summary.
-- **Selective retention**: Keep only the tool results that are still relevant to the current sub-task.
-- **Context checkpointing**: Periodically summarize the entire scratchpad and restart with a clean context.
+### 4.1 Defending Against "Tool Result Rot"
+
+A common mistake in agent development is injecting raw JSON arrays or massive API responses directly into the context window. This not only consumes tokens rapidly but degrades reasoning by drowning the model in irrelevant noise.
+
+**Engineering Rules for Tool Results:**
+- **Never inject raw JSON tables**: Transform structured data into token-efficient Markdown tables or natural language summaries.
+- **Implement hard caps**: Limit array returns to a strict Top-K (e.g., return only the first 5 records of a SQL query). Let the agent paginate if it needs more.
+- **Pre-summarize massive outputs**: If a tool returns a 10-page document, run it through a small, cheap LLM (e.g., Llama-3-8B) to extract the relevant answer *before* adding the result to the main agent's scratchpad.
 
 ## 5. Multi-Modal Context Composition
 

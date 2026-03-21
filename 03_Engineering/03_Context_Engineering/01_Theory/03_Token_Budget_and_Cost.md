@@ -1,6 +1,7 @@
 # Token Budget & Cost Management
 
 *Prerequisite: [02_Context_Composition.md](02_Context_Composition.md).*
+*Position in CE Pipeline: Step 2 (Budget & Sort) and Step 3 (Compress & Degrade)*
 
 ---
 

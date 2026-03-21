@@ -25,24 +25,37 @@ In production, the context is assembled dynamically from multiple sources — sy
 
 | File | Topics | Prerequisite |
 | :--- | :--- | :--- |
-| [01_Context_Window_Mechanics](01_Theory/01_Context_Window_Mechanics.md) | KV cache cost model, prefix caching, Lost in the Middle, effective vs nominal window | Prompt Engineering 01 |
+| [01_Context_Window_Mechanics](01_Theory/01_Context_Window_Mechanics.md) | **[Foundation]** The "One Core, Two Axes" mental model + KV cache cost, prefix caching, Lost in the Middle | Prompt Engineering 01 |
 | [02_Context_Composition](01_Theory/02_Context_Composition.md) | 7-layer context anatomy, Sandwich Pattern, priority hierarchy, multi-modal costs | Theory 01 |
 | [03_Token_Budget_and_Cost](01_Theory/03_Token_Budget_and_Cost.md) | Budget model, priority-based allocation, compression strategies, cost optimization | Theory 02 |
 | [04_Long_Context_Techniques](01_Theory/04_Long_Context_Techniques.md) | NIAH testing, chunking strategies, map-reduce, tree of summaries, position-aware placement | Theory 02 |
 | [05_Dynamic_Context_Management](01_Theory/05_Dynamic_Context_Management.md) | Context as state machine, Schema-Driven State Tracking, hybrid schema, tiered model routing, memory consolidation | Theory 03 + 04 |
+| [06_Advanced_Context_Paradigms](01_Theory/06_Advanced_Context_Paradigms.md) | Information-theoretic compression, structure/modality-aware budgeting, MAS context orchestration, advanced evaluation | Theory 03 + 05 |
+| [07_CE_Evaluation](01_Theory/07_CE_Evaluation.md) | Evaluation metrics, NIAH variants, context relevance scoring, benchmarking methodology | Theory 04 + 06 |
 
 ---
 
 ## 02 Practical
 
+### Shared Library
+
+Reusable primitives imported by all case studies.
+
 | File | What It Implements | Prerequisite |
 | :--- | :--- | :--- |
-| [01_Context_Composition_Pipeline.py](02_Practical/01_Context_Composition_Pipeline.py) | `ContextLayer`, `ContextComposer`, priority-based trimming, Sandwich Pattern | Theory 02, 03 |
-| [02_Token_Budget_Controller.py](02_Practical/02_Token_Budget_Controller.py) | `TokenBudgetController`, per-layer allocation, compression triggers | Theory 03 + Practical 01 |
-| [03_Context_Compression.py](02_Practical/03_Context_Compression.py) | 5 compression strategies: truncation, sliding window, extractive, abstractive, entity | Theory 03 + Practical 02 |
-| [04_Long_Document_Processor.ipynb](02_Practical/04_Long_Document_Processor.ipynb) | Chunking strategies, map-reduce, hierarchical summarization, position-aware assembly | Theory 04 |
-| [05_Multi_Turn_Context_Manager.py](02_Practical/05_Multi_Turn_Context_Manager.py) | `MultiTurnContextManager`, compression triggers, checkpointing, session export | Theory 05 + Practical 01–03 |
-| [06_Context_Observability.py](02_Practical/06_Context_Observability.py) | Token usage tracking, cost attribution, context diff logging, OpenTelemetry spans | Practical 01–02 |
+| [shared/composer.py](02_Practical/shared/composer.py) | `ContextLayer`, `ContextComposer`, priority-based trimming, Sandwich Pattern | Theory 02, 03 |
+| [shared/budget_controller.py](02_Practical/shared/budget_controller.py) | `TokenBudgetController`, per-layer allocation, compression triggers | Theory 03 |
+| [shared/compressor.py](02_Practical/shared/compressor.py) | 5 compression strategies: truncation, sliding window, extractive, abstractive, entity | Theory 03 |
+| [shared/observability.py](02_Practical/shared/observability.py) | `ContextObserver`, cost attribution, context diff logging, OpenTelemetry spans | Theory 01–03 |
+
+### Case Studies
+
+End-to-end scenarios combining the shared library to solve real problems.
+
+| Directory | What It Demonstrates | Prerequisite |
+| :--- | :--- | :--- |
+| [customer_support/](02_Practical/customer_support/) | Multi-turn context management, schema-driven state tracking, compression triggers | Theory 05 + shared/ |
+| [document_analysis/](02_Practical/document_analysis/) | Chunking strategies, map-reduce, hierarchical summarization, position-aware assembly | Theory 04 + shared/ |
 
 ---
 
@@ -66,14 +79,19 @@ In production, the context is assembled dynamically from multiple sources — sy
 ## Recommended Learning Path
 
 ```
-Theory 01 → Theory 02 → Theory 03 ──→ Practical 01 → Practical 02 → Practical 03
-                │                                                          │
-                └──→ Theory 04 ──→ Practical 04                           │
-                │                                                          ▼
-                └──→ Theory 05 ──→ Practical 05 ──────────────→ Practical 06
-                                                                           │
-                                                                           ▼
-                                                              Best Practice 01 → 02 → 03
+Theory 01 → Theory 02 → Theory 03 ──→ shared/composer
+                │                   → shared/budget_controller
+                │                   → shared/compressor
+                │                   → shared/observability
+                │                          │
+                └──→ Theory 04 ────────────┼──→ document_analysis/
+                │                          │
+                └──→ Theory 05 ────────────┴──→ customer_support/
+                │
+                └──→ Theory 06 (Academic Advanced)
+                                                    │
+                                                    ▼
+                                       Best Practice 01 → 02 → 03
 ```
 
 ---
