@@ -67,6 +67,8 @@ It is common to confuse "Skills" with "MCP Tools." They are two complementary ca
 | **Use Cases** | Defining workflows, coding standards, review criteria, communication style. | Connecting databases, APIs, file systems, third-party services. |
 | **Analogy** | An **Operations Manual** for the employee. | A **Vendor Integration Protocol** for the company. |
 
+![Skills vs MCP Comparison](../../../assets/images/03_Engineering/05_Agent/skills_vs_mcp_comparison.png)
+
 ---
 
 ## 4. Synergy: Skills + MCP in Action
@@ -174,3 +176,5 @@ As the underlying model becomes smarter (e.g., from Claude 3 to Claude 4):
 ## Key References
 - [Claude Code: Understanding Skills](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code)
 - [Building Modular Agent Systems](https://huyenchip.com/2023/04/11/llm-engineering.html)
+- [Claude Agent Skills Development Guide](../claude_agent_skills_development_guide.md) — hands-on guide covering Skill structure, development workflow, testing, and iteration patterns for Claude Code.
+- **The Complete Guide to Building Skill for Claude** (`materials/papers/09_Agent/`) — comprehensive reference for Skill design patterns, YAML frontmatter spec, and best practices.

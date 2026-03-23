@@ -1,7 +1,7 @@
 # Basic Architecture
 
 *Prerequisite: [../../03_Memory/01_Theory/01_Memory_Systems.md](../../03_Memory/01_Theory/01_Memory_Systems.md).*
-*See Also: [../../../04_Solutions/05_RAG_Architecture.md](../../../04_Solutions/05_RAG_Architecture.md) (domain RAG design), [../../../04_Solutions/07_Knowledge_Graph_Integration.md](../../../04_Solutions/07_Knowledge_Graph_Integration.md) (GraphRAG patterns).*
+*See Also: [../../../04_Solutions/05_RAG_Architecture.md](../../../04_Solutions/05_RAG_Architecture.md) (domain RAG design), [../../../04_Solutions/07_Knowledge_Graph_Integration.md](../../../04_Solutions/07_Knowledge_Graph_Integration.md) (GraphRAG patterns), [../02_Practical/case_study_fashion_retrieval/retrieval-technical-design.md](../02_Practical/case_study_fashion_retrieval/retrieval-technical-design.md) (production multi-stage retrieval case study).*
 
 ---
 
@@ -24,6 +24,12 @@ graph LR
     style Retrieval fill:#e1f5fe,stroke:#01579b
     style VDB fill:#fff9c4,stroke:#fbc02d
 ```
+
+The diagram above shows the **Naive RAG** baseline. In practice, RAG systems evolve into more specialized architectures depending on data modality and task complexity:
+
+![RAG Architecture Landscape](../../../assets/images/03_Engineering/04_RAG/rag_architectures_overview.png)
+
+*From simple to complex: Naive → Retrieve-and-Rerank → Multimodal → Graph → Hybrid → Agentic RAG. Each variant is covered in the subsequent theory files.*
 
 ## 1. Fundamental Concepts: Vector Representations
 

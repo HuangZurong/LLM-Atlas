@@ -296,3 +296,13 @@ User Query
 ```
 
 The key insight: **each module is independently tunable and evaluable**. A team can improve retrieval without touching generation, or swap indexing strategies without rewriting the query layer.
+
+---
+
+## 9. RAG Tooling Ecosystem
+
+The following reference map covers the primary tools and frameworks across each layer of the RAG stack (LLMs, Frameworks, Vector Databases, Data Extraction, Embeddings, Evaluation):
+
+![RAG Developer's Stack](../../../assets/images/03_Engineering/04_RAG/rag_developer_stack.png)
+
+*For a production case study that combines multi-path hybrid recall (fashionSigLIP + BM25 + text semantic) with 4-dimensional fine reranking, see [../02_Practical/case_study_fashion_retrieval/retrieval-technical-design.md](../02_Practical/case_study_fashion_retrieval/retrieval-technical-design.md).*

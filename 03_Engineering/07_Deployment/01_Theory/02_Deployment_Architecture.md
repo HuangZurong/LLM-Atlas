@@ -4,6 +4,12 @@
 
 ---
 
+The following diagram maps the four primary deployment topologies for AI agents in production — Batch, Stream, Real Time, and Edge — along with their infrastructure components:
+
+![AI Agent Deployment Types](../../../assets/images/03_Engineering/06_Deployment/ai_agent_deployment_types.png)
+
+---
+
 ## 1. Deployment Patterns
 
 How you structure your model serving determines your quality-cost-latency balance.

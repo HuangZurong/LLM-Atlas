@@ -99,3 +99,11 @@ Four-phase progression: **Strategy → Infrastructure → Build → Ship**.
 | **"I want to train/align models"** | Track 1 (04) → Track 2 (01→05) |
 | **"I need to deploy to production"** | Track 3 (07→09) → Track 4 (02, 10) |
 | **"I'm evaluating LLM for my business"** | Track 4 (01→02) → Track 3 (01) → Track 4 (10) |
+
+---
+
+## Reference Materials
+
+| Type | Title | Tracks |
+| :--- | :--- | :--- |
+| **Book** | Build a Large Language Model — Raschka (2025) (`materials/books/`) | Track 1–2: end-to-end guide from architecture → pre-training → fine-tuning → alignment |

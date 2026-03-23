@@ -30,6 +30,11 @@ The attacker places malicious instructions in a location the model is likely to 
 
 ## 3. Defense Strategies
 
+The following reference map summarizes guardrail categories, defense layers, and the major open-source libraries available for each:
+
+![LLM Guardrails Overview](../../../assets/images/03_Engineering/07_Security/llm_guardrails_overview.png)
+
+
 ### 3.1 Input Hardening
 - **Delimiters**: Wrap user input in special tokens (e.g., `### USER INPUT ###`) and instruct the model to only treat content inside as data, not instructions.
 - **Length Limits**: Hard-cap input length to prevent complex payload injections.
