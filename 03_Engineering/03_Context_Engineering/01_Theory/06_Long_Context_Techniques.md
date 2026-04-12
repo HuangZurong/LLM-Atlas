@@ -1,6 +1,6 @@
-# Long Context Techniques
+# 06 · Long Context Techniques
 
-*Prerequisite: [02_Context_Composition.md](02_Context_Composition.md).*
+*Prerequisite: [04_Context_Composition.md](04_Context_Composition.md).*
 
 ---
 
@@ -41,7 +41,7 @@ Query: "What is the secret code?"
 Always run NIAH tests on your specific model + context length combination before deploying long-context features. Don't rely on published benchmarks alone — they use different haystack content than your domain.
 
 **Advanced NIAH: Multi-Needle Reasoning**
-Standard NIAH only tests if a model can *find* a single string. In production, models often need to synthesize multiple facts. Advanced evaluations (as discussed in `06_Advanced_Context_Paradigms.md`) insert 3-5 related needles across the 100K window to test if the model can connect them logically, which is a much stricter test of true long-context capability.
+Standard NIAH only tests if a model can *find* a single string. In production, models often need to synthesize multiple facts. Advanced evaluations (as discussed in `08_Advanced_Context_Paradigms.md`) insert 3-5 related needles across the 100K window to test if the model can connect them logically, which is a much stricter test of true long-context capability.
 
 ## 3. Chunking Strategies
 
@@ -139,7 +139,7 @@ Given attention patterns, place content strategically:
 
 ## 6. Long Context in Agent Loops
 
-*Note: For the definitive patterns on managing long contexts in autonomous agents, refer to `05_Dynamic_Context_Management.md` and `06_Advanced_Context_Paradigms.md`.*
+*Note: For the definitive patterns on managing long contexts in autonomous agents, refer to `07_Dynamic_Context_Management.md` and `08_Advanced_Context_Paradigms.md`.*
 
 In multi-step agent execution, context grows with each tool call. Manage this proactively:
 

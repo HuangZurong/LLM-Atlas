@@ -1,6 +1,6 @@
-# Dynamic Context Management
+# 07 · Dynamic Context Management
 
-*Prerequisite: [03_Token_Budget_and_Cost.md](03_Token_Budget_and_Cost.md) | [04_Long_Context_Techniques.md](04_Long_Context_Techniques.md).*
+*Prerequisite: [05_Token_Budget_and_Cost.md](05_Token_Budget_and_Cost.md) | [06_Long_Context_Techniques.md](06_Long_Context_Techniques.md).*
 *Position in CE Pipeline: Step 3 (Compress & Degrade) and Step 4 (Assemble & Observe)*
 
 ---

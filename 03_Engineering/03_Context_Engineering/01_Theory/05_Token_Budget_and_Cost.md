@@ -1,6 +1,6 @@
-# Token Budget & Cost Management
+# 05 · Token Budget & Cost Management
 
-*Prerequisite: [02_Context_Composition.md](02_Context_Composition.md).*
+*Prerequisite: [04_Context_Composition.md](04_Context_Composition.md).*
 *Position in CE Pipeline: Step 2 (Budget & Sort) and Step 3 (Compress & Degrade)*
 
 ---
@@ -52,7 +52,7 @@ def allocate_budget(
     }
 ```
 
-When a layer exceeds its allocation, apply the trim strategy from the priority table in `02_Context_Composition.md`.
+When a layer exceeds its allocation, apply the trim strategy from the priority table in `04_Context_Composition.md`.
 
 ## 3. Compression Strategies
 
@@ -73,7 +73,7 @@ When trimming is needed, choose the right strategy per layer:
 
 ### 4.1 Prefix Caching
 
-Cache the static prefix (System Prompt + Few-shots) to avoid recomputing KV states on every request. See `01_Context_Window_Mechanics.md` for provider-specific setup.
+Cache the static prefix (System Prompt + Few-shots) to avoid recomputing KV states on every request. See `03_Context_Window_Mechanics.md` for provider-specific setup.
 
 **Expected savings**: 30–60% reduction in input token costs for high-traffic applications.
 

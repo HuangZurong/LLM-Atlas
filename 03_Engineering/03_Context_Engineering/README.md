@@ -1,22 +1,22 @@
 # 03 · Context Engineering
 
-*Prerequisite: [02_Prompt_Engineering](../02_Prompt_Engineering) — understand how to write effective prompts before managing what goes into the context window.*
+*Prerequisite: [02_Prompt_Engineering](../02_Prompt_Engineering) - understand how to write effective prompts before managing what goes into the context window.*
 
 ---
 
 Context engineering is the discipline of deciding **what to put in the context window, in what order, and at what priority**. While prompt engineering focuses on *how* to phrase instructions, context engineering focuses on the *composition and lifecycle* of the entire context.
 
-In production, the context is assembled dynamically from multiple sources — system prompt, retrieved memory, RAG results, conversation history, tool outputs — all competing for a finite token budget. Getting this right is the difference between a reliable application and one that hallucinates, truncates, or costs 10× more than necessary.
+In production, the context is assembled dynamically from multiple sources - system prompt, retrieved memory, RAG results, conversation history, tool outputs - all competing for a finite token budget. Getting this right is the difference between a reliable application and one that hallucinates, truncates, or costs 10x more than necessary.
 
 ---
 
 ## Module Structure
 
-```
+```text
 03_Context_Engineering/
-├── 01_Theory/          Concepts and mental models
-├── 02_Practical/       Working implementations
-└── 03_Best_Practice/   Production patterns and decision frameworks
+|-- 01_Theory/          Concepts and mental models
+|-- 02_Practical/       Working implementations
+`-- 03_Best_Practice/   Production patterns and decision frameworks
 ```
 
 ---
@@ -25,13 +25,15 @@ In production, the context is assembled dynamically from multiple sources — sy
 
 | File | Topics | Prerequisite |
 | :--- | :--- | :--- |
-| [01_Context_Window_Mechanics](01_Theory/01_Context_Window_Mechanics.md) | **[Foundation]** The "One Core, Two Axes" mental model + KV cache cost, prefix caching, Lost in the Middle | Prompt Engineering 01 |
-| [02_Context_Composition](01_Theory/02_Context_Composition.md) | 7-layer context anatomy, Sandwich Pattern, priority hierarchy, multi-modal costs | Theory 01 |
-| [03_Token_Budget_and_Cost](01_Theory/03_Token_Budget_and_Cost.md) | Budget model, priority-based allocation, compression strategies, cost optimization | Theory 02 |
-| [04_Long_Context_Techniques](01_Theory/04_Long_Context_Techniques.md) | NIAH testing, chunking strategies, map-reduce, tree of summaries, position-aware placement | Theory 02 |
-| [05_Dynamic_Context_Management](01_Theory/05_Dynamic_Context_Management.md) | Context as state machine, Schema-Driven State Tracking, hybrid schema, tiered model routing, memory consolidation | Theory 03 + 04 |
-| [06_Advanced_Context_Paradigms](01_Theory/06_Advanced_Context_Paradigms.md) | Information-theoretic compression, structure/modality-aware budgeting, MAS context orchestration, advanced evaluation | Theory 03 + 05 |
-| [07_CE_Evaluation](01_Theory/07_CE_Evaluation.md) | Evaluation metrics, NIAH variants, context relevance scoring, benchmarking methodology | Theory 04 + 06 |
+| [01_Introduction](01_Theory/01_Introduction.md) | **[Orientation]** Definition of CE, why it matters, common use cases, scope boundaries, minimal mental model | Prompt Engineering |
+| [02_Context_Strategies_by_Scenario](01_Theory/02_Context_Strategies_by_Scenario.md) | Task-specific CE strategies for Q&A, support, document analysis, coding, agents, personalization, and multimodal flows | Introduction |
+| [03_Context_Window_Mechanics](01_Theory/03_Context_Window_Mechanics.md) | **[Foundation]** The "One Core, Two Axes" mental model + KV cache cost, prefix caching, Lost in the Middle | Prompt Engineering 01 |
+| [04_Context_Composition](01_Theory/04_Context_Composition.md) | 7-layer context anatomy, Sandwich Pattern, priority hierarchy, multi-modal costs | Theory 03 |
+| [05_Token_Budget_and_Cost](01_Theory/05_Token_Budget_and_Cost.md) | Budget model, priority-based allocation, compression strategies, cost optimization | Theory 04 |
+| [06_Long_Context_Techniques](01_Theory/06_Long_Context_Techniques.md) | NIAH testing, chunking strategies, map-reduce, tree of summaries, position-aware placement | Theory 04 |
+| [07_Dynamic_Context_Management](01_Theory/07_Dynamic_Context_Management.md) | Context as state machine, Schema-Driven State Tracking, hybrid schema, tiered model routing, memory consolidation | Theory 05 + 06 |
+| [08_Advanced_Context_Paradigms](01_Theory/08_Advanced_Context_Paradigms.md) | Information-theoretic compression, structure/modality-aware budgeting, MAS context orchestration, advanced evaluation | Theory 05 + 07 |
+| [09_CE_Evaluation](01_Theory/09_CE_Evaluation.md) | Evaluation metrics, NIAH variants, context relevance scoring, benchmarking methodology | Theory 06 + 08 |
 
 ---
 
@@ -43,10 +45,10 @@ Reusable primitives imported by all case studies.
 
 | File | What It Implements | Prerequisite |
 | :--- | :--- | :--- |
-| [shared/composer.py](02_Practical/shared/composer.py) | `ContextLayer`, `ContextComposer`, priority-based trimming, Sandwich Pattern | Theory 02, 03 |
-| [shared/budget_controller.py](02_Practical/shared/budget_controller.py) | `TokenBudgetController`, per-layer allocation, compression triggers | Theory 03 |
-| [shared/compressor.py](02_Practical/shared/compressor.py) | 5 compression strategies: truncation, sliding window, extractive, abstractive, entity | Theory 03 |
-| [shared/observability.py](02_Practical/shared/observability.py) | `ContextObserver`, cost attribution, context diff logging, OpenTelemetry spans | Theory 01–03 |
+| [shared/composer.py](02_Practical/shared/composer.py) | `ContextLayer`, `ContextComposer`, priority-based trimming, Sandwich Pattern | Theory 04, 05 |
+| [shared/budget_controller.py](02_Practical/shared/budget_controller.py) | `TokenBudgetController`, per-layer allocation, compression triggers | Theory 05 |
+| [shared/compressor.py](02_Practical/shared/compressor.py) | 5 compression strategies: truncation, sliding window, extractive, abstractive, entity | Theory 05 |
+| [shared/observability.py](02_Practical/shared/observability.py) | `ContextObserver`, cost attribution, context diff logging, OpenTelemetry spans | Theory 03-05 |
 
 ### Case Studies
 
@@ -54,8 +56,8 @@ End-to-end scenarios combining the shared library to solve real problems.
 
 | Directory | What It Demonstrates | Prerequisite |
 | :--- | :--- | :--- |
-| [customer_support/](02_Practical/customer_support/) | Multi-turn context management, schema-driven state tracking, compression triggers | Theory 05 + shared/ |
-| [document_analysis/](02_Practical/document_analysis/) | Chunking strategies, map-reduce, hierarchical summarization, position-aware assembly | Theory 04 + shared/ |
+| [customer_support/](02_Practical/customer_support/) | Multi-turn context management, schema-driven state tracking, compression triggers | Theory 07 + shared/ |
+| [document_analysis/](02_Practical/document_analysis/) | Chunking strategies, map-reduce, hierarchical summarization, position-aware assembly | Theory 06 + shared/ |
 
 ---
 
@@ -78,21 +80,23 @@ End-to-end scenarios combining the shared library to solve real problems.
 
 ## Recommended Learning Path
 
-```
-Theory 01 → Theory 02 → Theory 03 ──→ shared/composer
-                │                   → shared/budget_controller
-                │                   → shared/compressor
-                │                   → shared/observability
-                │                          │
-                └──→ Theory 04 ────────────┼──→ document_analysis/
-                │                          │
-                └──→ Theory 05 ────────────┴──→ customer_support/
-                │
-                └──→ Theory 06 (Academic Advanced)
-                                                    │
-                                                    ▼
-                                       Best Practice 01 → 02 → 03
-```
+Start with [01_Introduction](01_Theory/01_Introduction.md) before entering the rest of Theory.
+
+1. [01_Introduction](01_Theory/01_Introduction.md)
+2. [02_Context_Strategies_by_Scenario](01_Theory/02_Context_Strategies_by_Scenario.md)
+3. [03_Context_Window_Mechanics](01_Theory/03_Context_Window_Mechanics.md)
+4. [04_Context_Composition](01_Theory/04_Context_Composition.md)
+5. [05_Token_Budget_and_Cost](01_Theory/05_Token_Budget_and_Cost.md)
+6. Shared library:
+   [shared/composer.py](02_Practical/shared/composer.py),
+   [shared/budget_controller.py](02_Practical/shared/budget_controller.py),
+   [shared/compressor.py](02_Practical/shared/compressor.py),
+   [shared/observability.py](02_Practical/shared/observability.py)
+7. [06_Long_Context_Techniques](01_Theory/06_Long_Context_Techniques.md) -> [document_analysis/](02_Practical/document_analysis/)
+8. [07_Dynamic_Context_Management](01_Theory/07_Dynamic_Context_Management.md) -> [customer_support/](02_Practical/customer_support/)
+9. [08_Advanced_Context_Paradigms](01_Theory/08_Advanced_Context_Paradigms.md)
+10. Best Practice 01 -> 02 -> 03
+11. [09_CE_Evaluation](01_Theory/09_CE_Evaluation.md)
 
 ---
 
@@ -100,7 +104,7 @@ Theory 01 → Theory 02 → Theory 03 ──→ shared/composer
 
 | This module covers | Covered elsewhere |
 | :--- | :--- |
-| What goes in the context window | How to write instructions → [02_Prompt_Engineering](../02_Prompt_Engineering) |
-| Token budget and compression | Cross-session persistence → [04_Memory](../04_Memory) |
-| Long context processing (in-window) | External retrieval → [05_RAG](../05_RAG) |
-| Agent context management | Agent architecture and tool use → [06_Agent](../06_Agent) |
+| What goes in the context window | How to write instructions -> [02_Prompt_Engineering](../02_Prompt_Engineering) |
+| Token budget and compression | Cross-session persistence -> [04_Memory](../04_Memory) |
+| Long context processing (in-window) | External retrieval -> [05_RAG](../05_RAG) |
+| Agent context management | Agent architecture and tool use -> [06_Agent](../06_Agent) |

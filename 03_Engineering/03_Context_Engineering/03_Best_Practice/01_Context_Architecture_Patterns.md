@@ -1,6 +1,6 @@
 # Context Architecture Patterns
 
-*Prerequisite: [../01_Theory/05_Dynamic_Context_Management.md](../01_Theory/05_Dynamic_Context_Management.md).*
+*Prerequisite: [../01_Theory/07_Dynamic_Context_Management.md](../01_Theory/07_Dynamic_Context_Management.md).*
 
 ---
 
@@ -83,7 +83,7 @@ Always place static, cacheable content before dynamic content. This maximizes pr
 | **Fill context to 95%+ capacity** | No room for output; model truncates responses | Reserve 20–30% for output |
 | **Instructions only in the middle** | Lost in the Middle — model ignores them | Use Sandwich Pattern: instructions at start AND end |
 | **Skip NIAH testing** | Deploy long-context features that silently fail | Always run NIAH before deploying >32K context |
-| **Same context structure for all tasks** | Over-provisioning for simple tasks, under for complex | Size context to task type (see `01_Theory/01_Context_Window_Mechanics.md`) |
+| **Same context structure for all tasks** | Over-provisioning for simple tasks, under for complex | Size context to task type (see `01_Theory/03_Context_Window_Mechanics.md`) |
 | **Ignore tool result accumulation** | Agent loops exhaust context after 20–30 steps | Prune/summarize tool results proactively |
 | **Inject raw tool output** | JSON blobs waste tokens | Extract only the relevant fields before injecting |
 | **No compression fallback** | Hard failure when context overflows | Always have a graceful degradation path |

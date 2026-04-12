@@ -1,6 +1,6 @@
-# Context Composition
+# 04 · Context Composition
 
-*Prerequisite: [01_Context_Window_Mechanics.md](01_Context_Window_Mechanics.md).*
+*Prerequisite: [03_Context_Window_Mechanics.md](03_Context_Window_Mechanics.md).*
 *Position in CE Pipeline: Step 2 (Budget & Sort) and Step 4 (Assemble)*
 
 ---
@@ -43,7 +43,7 @@ A production LLM call assembles context from multiple sources, each with a diffe
 
 ## 2. Ordering Principles
 
-The order of layers matters because of attention patterns (see `01_Context_Window_Mechanics.md`).
+The order of layers matters because of attention patterns (see `03_Context_Window_Mechanics.md`).
 
 ### The Sandwich Pattern
 

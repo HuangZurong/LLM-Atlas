@@ -1,4 +1,4 @@
-# 06 · Advanced Context Paradigms
+# 08 · Advanced Context Paradigms
 
 *Note: This document extracts actionable engineering insights from recent academic research (e.g., "A Survey of Context Engineering for Large Language Models"). While academia often uses "Context Engineering" as a broad umbrella term encompassing RAG and Prompt Engineering, we strictly filter these concepts through our production-centric definition: **managing token budgets, priority, and information lifecycle**.*
 
